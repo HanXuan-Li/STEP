@@ -1,0 +1,49 @@
+[
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Note on Orientation: 0° means facing Right on the map, 90° means facing Up, 180° means facing Left, 270° means facing Down.\nNote on Map Legend: Light gray areas represent explored regions; white areas represent unexplored regions; the red arrow indicates the Agent's position, and the arrow direction shows the Agent's heading.\nTask Objective: Topological Reasoning;\nEnvironmental Feature Map: <image>;\nCurrent Orientation: 0;\nQuestion: What objects are located in the right-back side of agent?"
+      },
+      {
+        "role": "assistant",
+        "content": "<answer>The right back side of the agent contains: Counter Top, Garbage Can, Sink Basin, Butter Knife, Coffee Machine.</answer>"
+      }
+    ],
+    "images": [
+      "images/01_topological_map.png"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Note on Orientation: 0° means facing Right on the map, 90° means facing Up, 180° means facing Left, 270° means facing Down.\nNote on Map Legend: Light gray areas represent explored regions; white areas represent unexplored regions; the red dot indicates the Agent's position.\nTask Objective: Pose Estimation;\nCurrent RGB Observation: <image>;\nEnvironmental Feature Map: <image>;\nQuestion: Based on the visual landmarks in the image and the semantic map, estimate my current orientation angle (0-360°)."
+      },
+      {
+        "role": "assistant",
+        "content": "<answer>180</answer>"
+      }
+    ],
+    "images": [
+      "images/02_pose_rgb.png",
+      "images/02_pose_map.png"
+    ]
+  },
+  {
+    "messages": [
+      {
+        "role": "user",
+        "content": "**Role and Core Goal:**\n        You are a professional Indoor Navigation Agent. Your core goal is to efficiently and accurately select the **Next Best Action** based on the provided **Task Objective** and **Environmental Information**.\n\n        **Input Data:**\n        The Agent receives the following critical information:\n        1. **Task Objective:** A clear statement of the navigation goal (e.g., \"Go to a dining table\" or \"Find the bedroom area\").\n        2. **Current RGB Viewpoint with Markers:** This image displays the Agent's current view, with all reachable adjacent locations explicitly marked by **numbered Markers**.\n        3. **Environmental Feature Map:** This map provides global/local environmental semantic features, recording the **semantic characteristics** of objects at every location. The Agent **must** utilize this feature map for **advanced path planning and target inference**.\n        4. **Current Orientation:** The direction the agent is currently facing on the map, represented as an angle where 0° is Right and values increase counter-clockwise (90°=Up, 180°=Left, 270°=Down).\n\n        **Decision Rules and Strict Output Format:**\n\n        **The Agent's decision for each step must be one and only one of the three actions below**\n\n        **A. Movement Decision:**\n        If there are Markers in the current view, and selecting one of them is the most effective and direct way to approach the **Task Objective**, the Agent must select that Marker.\n        * **Priority:** Prioritize selecting a Marker, **avoiding unnecessary rotation**. Choose the Marker that maximizes the reduction of the **path distance to the goal** or is best positioned to **reveal the target area**.\n        * **Output Format:** Output **only** the selected Marker's **number** (e.g., \"7\", \"21\").\n\n        **B. View Adjustment Decision:**\n        If the Markers in the current view are all **unsuitable** (e.g., pointing in the wrong direction or not advancing the task), OR if the Agent determines the target objective is likely in an unobserved area, it must adjust the viewpoint.\n        * **Allowed Operations:** Only \"RotateLeft\" or \"RotateRight\" or \"MoveAhead\" are permitted.\n        * **Output Format:** Output **only** \"RotateLeft\" or \"RotateRight\" or \"MoveAhead\".\n\n        **Strict Constraints:**\n        * You can perform thinking first, but the final decision must be a **single, precise** action command: a Marker number OR 'RotateLeft' OR 'RotateRight' OR 'MoveAhead'.\n        \n        Input:\n            - Task Objective: microwave;\n            - Current RGB Viewpoint with Markers: <image>;\n            - Environmental Feature Map: <image>;\n            - Current Orientation: 180."
+      },
+      {
+        "role": "assistant",
+        "content": "<thinking>Given that the microwave is likely on the kitchen counter to my right, and the map confirms the target is in the front-right direction, I should head toward the markers in that area. Marker 20 is positioned near the counter and aligns with the probable location of the microwave. Moving to Marker 20 will bring me closer to the target while maintaining a clear path.</thinking>\n<answer>20</answer>"
+      }
+    ],
+    "images": [
+      "images/03_navigation_rgb.png",
+      "images/03_navigation_map.png"
+    ]
+  }
+]

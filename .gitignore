@@ -1,0 +1,55 @@
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+token*.json
+
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Training data, checkpoints, and experiment output
+data/step_cot_train*
+checkpoints/
+outputs/
+results/
+runs/
+mlruns/
+saves/
+wandb/
+swanlog/
+.swanlab/
+ray_results/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.onnx
+*.arrow
+*.parquet
+
+# Local caches and temporary files
+hf_cache/
+ms_cache/
+om_cache/
+*.log
+*.tmp
